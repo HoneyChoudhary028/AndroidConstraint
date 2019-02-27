@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/left_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/left_guideline"
+        android:layout_height="wrap_content"
+        android:text="@string/hey"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+
+    <TextView
+        android:id="@+id/textAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/left_guideline"
+        android:layout_marginTop="10dp"
+        android:text="@string/hello"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/textName" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="textName,textAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="9654967187"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/barrier"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="textName,textAddress,textPhone" />
+
+</android.support.constraint.ConstraintLayout>

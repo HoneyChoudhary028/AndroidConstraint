@@ -1,0 +1,140 @@
+package com.example.rudra.basicdemoexample;
+
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+import com.example.rudra.basicdemoexample.model.LogInRequest;
+import com.example.rudra.basicdemoexample.model.LogInResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class LoginActivity extends AppCompatActivity {
+
+    private TextView txtForgetPassword;
+    private TextView txtSignUp;
+    private Toolbar toolbar;
+    final Context context = this;
+    private EditText userName,password;
+    private Button btnLogin;
+    private ProgressDialog progressDialog;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        txtForgetPassword=findViewById(R.id.txtForgetPassword);
+        txtSignUp=findViewById(R.id.txtSignUp);
+        userName=findViewById(R.id.userName);
+        password=findViewById(R.id.password);
+        btnLogin=findViewById(R.id.btnLogin);
+
+        toolbar=findViewById(R.id.my_toolbar);
+       
+
+        /*setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Login");
+
+        actionBar.setDisplayHomeAsUpEnabled(true);*/
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                hitLoginApi();
+                /////////////
+            }
+        });
+        txtSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(LoginActivity.this,SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
+        txtForgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //showLogoutDialog();
+
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.dialog);
+                dialog.setTitle("Title...");
+                dialog.show();
+            }
+
+        });
+    }
+    private void showLogoutDialog() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginActivity.this);
+        // Setting Dialog Title
+        /*alertDialog.setTitle("Logout");
+        // Setting Dialog Message
+        alertDialog.setMessage("Are you sure you want to logout?");
+
+        // Setting Positive "Yes" Button
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+
+            }
+        });*/
+        alertDialog.show();
+    }
+    public void hitLoginApi(){
+
+        String uname = userName.getText().toString();
+        String pass = password.getText().toString();
+
+
+        final LogInRequest.Param paramlogin=new LogInRequest.Param();
+        paramlogin.setUsername(uname);
+        paramlogin.setPassword(pass);
+
+        LogInRequest logInRequest=new LogInRequest();
+        logInRequest.setApiKey("H673GM8a7G");
+        logInRequest.setDeviceId("e7a1b4b717bc3328");
+        logInRequest.setMethod("login");
+        logInRequest.setParam(paramlogin);
+
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+          //  apiInterface.getApiClient(logInRequest).enqueue(new Callback<LogInResponse>() {
+
+        /*apiInterface.getApiClient(logInRequest).enqueue(new Callback<LogInResponse>() {
+            @Override
+            public void onResponse(Call<LogInResponse> call, Response<LogInResponse> response) {
+
+                LogInResponse logInResponse = response.body();
+
+                LogInResponse.ResultData resultData = logInResponse.getResultData();
+
+
+                if(resultData!=null){
+                   String name= resultData.getFullname();
+                   String username= resultData.getUsername();
+                    String userid=resultData.getUserId();
+
+
+                    String message=logInResponse.getMessage();
+
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show

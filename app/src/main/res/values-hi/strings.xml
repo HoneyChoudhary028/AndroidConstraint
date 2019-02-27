@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ConstraintLayoutDemo</string>
+    <string name="hey">नमस्कार</string>
+    <string name="hello">नमस्कार शुभ प्रभात</string>
+</resources>
