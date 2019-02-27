@@ -21,7 +21,7 @@
         <activity android:name=".ChainActivity" />
         <activity android:name=".BarrierActivity" />
         <activity android:name=".GuidelineActivity" />
-        <activity android:name=".GroupActivity"></activity>
+        <activity android:name=".GroupActivity" />
     </application>
 
 </manifest>
